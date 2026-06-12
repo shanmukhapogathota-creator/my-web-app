@@ -3,27 +3,16 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Downloading Source Code'
-            }
-        }
-
         stage('Build') {
             steps {
-                echo 'Building Web Application'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing Application'
+                bat 'dir'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying Application'
+                bat 'if not exist deployed mkdir deployed'
+                bat 'copy index.html deployed'
             }
         }
     }
