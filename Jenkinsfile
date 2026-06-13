@@ -3,16 +3,16 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                bat 'dir'
+                bat 'docker build -t todo-app .'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'if not exist deployed mkdir deployed'
-                bat 'copy index.html deployed'
+                bat 'docker rm -f todo-container || exit 0'
+                bat 'docker run -d --name todo-container -p 8082:80 todo-app'
             }
         }
     }
