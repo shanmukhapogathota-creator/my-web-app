@@ -5,14 +5,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t todo-app .'
+                sh 'docker build -t todo-app .'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'docker rm -f todo-container || exit 0'
-                bat 'docker run -d --name todo-container -p 8082:80 todo-app'
+                sh 'docker rm -f todo-container || true'
+                sh 'docker run -d --name todo-container -p 8082:80 todo-app'
             }
         }
     }
