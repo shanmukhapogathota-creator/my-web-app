@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,11 +10,12 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Run Container') {
             steps {
                 sh 'docker rm -f todo-container || true'
-                sh 'docker run -d --name todo-container -p 8083:80 todo-app'
+                sh 'docker run -d --restart unless-stopped --name todo-container -p 8083:80 todo-app'
             }
         }
+
     }
 }
