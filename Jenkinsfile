@@ -1,21 +1,30 @@
-
 pipeline {
     agent any
 
     stages {
 
-        stage('Build Docker Image') {
+        stage('Checkout') {
             steps {
-                sh 'docker build -t todo-app .'
+                echo 'Downloading Source Code'
             }
         }
 
-        stage('Run Container') {
+        stage('Build') {
             steps {
-                sh 'docker rm -f todo-container || true'
-                sh 'docker run -d --restart unless-stopped --name todo-container -p 8083:80 todo-app'
+                echo 'Building Application'
             }
         }
 
+        stage('Test') {
+            steps {
+                echo 'Running Tests'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying Application'
+            }
+        }
     }
 }
